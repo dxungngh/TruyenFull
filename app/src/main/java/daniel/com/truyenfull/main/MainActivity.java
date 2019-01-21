@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import daniel.com.truyenfull.R;
+import daniel.com.truyenfull.injection.Injection;
 import daniel.com.truyenfull.util.ActivityUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createPresenter() {
-        new MainPresenter(this.fragment);
+        new MainPresenter(
+            Injection.provideContext(super.getApplicationContext()),
+            this.fragment
+        );
     }
 }

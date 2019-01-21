@@ -14,5 +14,7 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
         void changeBookType(String bookType);
+
+        String getLinkOfBookType(String bookType);
     }
 }

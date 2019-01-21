@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="book_types_array">
+        <item>Truyện Mới</item>
         <item>Tiên Hiệp</item>
         <item>Kiếm Hiệp</item>
         <item>Ngôn Tình</item>
@@ -38,5 +39,46 @@
         <item>Việt Nam</item>
         <item>Đoản Văn</item>
         <item>Khác</item>
+    </string-array>
+
+    <string-array name="links_of_book_types_array">
+        <item>https://truyenfull.vn/</item>
+        <item>https://truyenfull.vn/the-loai/tien-hiep/</item>
+        <item>https://truyenfull.vn/the-loai/kiem-hiep/</item>
+        <item>https://truyenfull.vn/the-loai/ngon-tinh/</item>
+        <item>https://truyenfull.vn/the-loai/do-thi/</item>
+        <item>https://truyenfull.vn/the-loai/quan-truong/</item>
+        <item>https://truyenfull.vn/the-loai/vong-du/</item>
+        <item>https://truyenfull.vn/the-loai/khoa-huyen/</item>
+        <item>https://truyenfull.vn/the-loai/huyen-huyen/</item>
+        <item>https://truyenfull.vn/the-loai/di-gioi/</item>
+        <item>https://truyenfull.vn/the-loai/di-nang/</item>
+        <item>https://truyenfull.vn/the-loai/quan-su/</item>
+        <item>https://truyenfull.vn/the-loai/lich-su/</item>
+        <item>https://truyenfull.vn/the-loai/xuyen-khong/</item>
+        <item>https://truyenfull.vn/the-loai/trong-sinh/</item>
+        <item>https://truyenfull.vn/the-loai/trinh-tham/</item>
+        <item>https://truyenfull.vn/the-loai/tham-hiem/</item>
+        <item>https://truyenfull.vn/the-loai/linh-di/</item>
+        <item>https://truyenfull.vn/the-loai/sac/</item>
+        <item>https://truyenfull.vn/the-loai/nguoc/</item>
+        <item>https://truyenfull.vn/the-loai/sung/</item>
+        <item>https://truyenfull.vn/the-loai/cung-dau/</item>
+        <item>https://truyenfull.vn/the-loai/nu-cuong/</item>
+        <item>https://truyenfull.vn/the-loai/gia-dau/</item>
+        <item>https://truyenfull.vn/the-loai/dong-phuong/</item>
+        <item>https://truyenfull.vn/the-loai/dam-my/</item>
+        <item>https://truyenfull.vn/the-loai/bach-hop/</item>
+        <item>https://truyenfull.vn/the-loai/hai-huoc/</item>
+        <item>https://truyenfull.vn/the-loai/dien-van/</item>
+        <item>https://truyenfull.vn/the-loai/co-dai/</item>
+        <item>https://truyenfull.vn/the-loai/mat-the/</item>
+        <item>https://truyenfull.vn/the-loai/truyen-teen/</item>
+        <item>https://truyenfull.vn/the-loai/phuong-tay/</item>
+        <item>https://truyenfull.vn/the-loai/nu-phu/</item>
+        <item>https://truyenfull.vn/the-loai/light-novel/</item>
+        <item>https://truyenfull.vn/the-loai/viet-nam/</item>
+        <item>https://truyenfull.vn/the-loai/doan-van/</item>
+        <item>https://truyenfull.vn/the-loai/khac/</item>
     </string-array>
 </resources>
