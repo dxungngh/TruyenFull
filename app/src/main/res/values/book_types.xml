@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="book_types_array">
+        <item>Tiên Hiệp</item>
+        <item>Kiếm Hiệp</item>
+        <item>Ngôn Tình</item>
+        <item>Đô Thị</item>
+        <item>Quan Trường</item>
+        <item>Võng Du</item>
+        <item>Khoa Huyễn</item>
+        <item>Huyền Huyễn</item>
+        <item>Dị Giới</item>
+        <item>Dị Năng</item>
+        <item>Quân Sự</item>
+        <item>Lịch Sử</item>
+        <item>Xuyên Không</item>
+        <item>Trọng Sinh</item>
+        <item>Trinh Thám</item>
+        <item>Thám Hiểm</item>
+        <item>Linh Dị</item>
+        <item>Sắc</item>
+        <item>Ngược</item>
+        <item>Sủng</item>
+        <item>Cung Đấu</item>
+        <item>Nữ Cường</item>
+        <item>Gia Đấu</item>
+        <item>Đông Phương</item>
+        <item>Đam Mỹ</item>
+        <item>Bách Hợp</item>
+        <item>Hài Hước</item>
+        <item>Điền Văn</item>
+        <item>Cổ Đại</item>
+        <item>Mạt Thế</item>
+        <item>Truyện Teen</item>
+        <item>Phương Tây</item>
+        <item>Nữ Phụ</item>
+        <item>Light Novel</item>
+        <item>Việt Nam</item>
+        <item>Đoản Văn</item>
+        <item>Khác</item>
+    </string-array>
+</resources>
