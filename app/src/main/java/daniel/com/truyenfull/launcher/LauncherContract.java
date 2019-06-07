@@ -1,7 +1,7 @@
 package daniel.com.truyenfull.launcher;
 
-import daniel.com.truyenfull.BasePresenter;
-import daniel.com.truyenfull.BaseView;
+import daniel.com.truyenfull.baseMVP.BasePresenter;
+import daniel.com.truyenfull.baseMVP.BaseView;
 
 public interface LauncherContract {
     interface View extends BaseView<Presenter> {

@@ -1,7 +1,7 @@
 package daniel.com.truyenfull.main;
 
-import daniel.com.truyenfull.BasePresenter;
-import daniel.com.truyenfull.BaseView;
+import daniel.com.truyenfull.baseMVP.BasePresenter;
+import daniel.com.truyenfull.baseMVP.BaseView;
 
 public interface MainContract {
     interface View extends BaseView<Presenter> {
@@ -10,6 +10,10 @@ public interface MainContract {
         void closeDrawer();
 
         void setTitleOfToolBar(String title);
+
+        void setupNavigationView(String[] bookTypeList);
+
+        void setSelectedTabLayout(boolean isNewBooksTab);
     }
 
     interface Presenter extends BasePresenter {

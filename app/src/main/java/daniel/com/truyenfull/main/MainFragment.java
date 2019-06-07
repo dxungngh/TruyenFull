@@ -3,11 +3,14 @@ package daniel.com.truyenfull.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,12 +30,16 @@ public class MainFragment extends Fragment
     private static MainFragment INSTANCE;
     private MainContract.Presenter presenter;
 
-    @BindView(R.id.main_drawer_layout)
+    @BindView(R.id.fragment_main_drawer_layout)
     protected DrawerLayout drawerLayout;
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
-    @BindView(R.id.main_nav_view)
+    @BindView(R.id.fragment_main_nav_view)
     protected NavigationView navigationView;
+    @BindView(R.id.fragment_main_tab_layout)
+    protected TabLayout tabLayout;
+    @BindView(R.id.fragment_main_book_list_recycler_view)
+    protected RecyclerView bookListRecyclerView;
 
     public static MainFragment getInstance() {
         if (INSTANCE == null) {
@@ -86,6 +93,24 @@ public class MainFragment extends Fragment
         this.toolbar.setTitle(title);
     }
 
+    @Override
+    public void setupNavigationView(String[] bookTypeList) {
+        this.navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = this.navigationView.getMenu();
+        for (String bookTypeTitle : bookTypeList) {
+            menu.add(bookTypeTitle);
+        }
+    }
+
+    @Override
+    public void setSelectedTabLayout(boolean isNewBooksTab) {
+        TabLayout.Tab tab = this.tabLayout.getTabAt(0);
+        if (!isNewBooksTab) {
+            tab = this.tabLayout.getTabAt(1);
+        }
+        tab.select();
+    }
+
     private void drawComponentViews() {
         AppCompatActivity activity = (AppCompatActivity) super.getActivity();
         activity.setSupportActionBar(this.toolbar);
@@ -98,15 +123,11 @@ public class MainFragment extends Fragment
         );
         this.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        this.setupNavigationView();
+        this.initRecyclerView();
     }
 
-    private void setupNavigationView() {
-        this.navigationView.setNavigationItemSelectedListener(this);
-        Menu menu = this.navigationView.getMenu();
-        String[] bookTypesList = super.getResources().getStringArray(R.array.book_types_array);
-        for (String bookTypeTitle : bookTypesList) {
-            menu.add(bookTypeTitle);
-        }
+    private void initRecyclerView() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(super.getActivity());
+        this.bookListRecyclerView.setLayoutManager(layoutManager);
     }
 }

@@ -7,6 +7,8 @@ import daniel.com.truyenfull.R;
 public class MainPresenter implements MainContract.Presenter {
     private Context context;
     private MainContract.View view;
+    private boolean isNewBooksTab = true;
+    private String currentBookType = "";
 
     public MainPresenter(Context context, MainContract.View view) {
         this.context = context;
@@ -19,12 +21,17 @@ public class MainPresenter implements MainContract.Presenter {
         String[] bookTypesList = this.context.getResources().getStringArray(
             R.array.book_types_array
         );
+        this.view.setupNavigationView(bookTypesList);
         this.changeBookType(bookTypesList[0]);
+        this.getListOfBooks();
     }
 
     @Override
     public void changeBookType(String bookType) {
-        this.view.setTitleOfToolBar(bookType);
+        this.currentBookType = bookType;
+        this.isNewBooksTab = true;
+        this.view.setSelectedTabLayout(this.isNewBooksTab);
+        this.view.setTitleOfToolBar(this.currentBookType);
         this.view.closeDrawer();
     }
 
@@ -42,5 +49,9 @@ public class MainPresenter implements MainContract.Presenter {
             }
         }
         return linksOfBookTypesList[0];
+    }
+
+    private void getListOfBooks() {
+        
     }
 }

@@ -1,4 +1,4 @@
-package daniel.com.truyenfull;
+package daniel.com.truyenfull.baseMVP;
 
 public interface BasePresenter {
     void start();
