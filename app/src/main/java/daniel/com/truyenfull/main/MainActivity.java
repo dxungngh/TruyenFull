@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private void createPresenter() {
         new MainPresenter(
             Injection.provideContext(super.getApplicationContext()),
-            this.fragment
+            this.fragment,
+            Injection.provideBooksRepository(super.getApplicationContext())
         );
     }
 }

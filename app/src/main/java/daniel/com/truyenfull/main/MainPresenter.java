@@ -3,16 +3,20 @@ package daniel.com.truyenfull.main;
 import android.content.Context;
 
 import daniel.com.truyenfull.R;
+import daniel.com.truyenfull.data.BooksRepository;
 
 public class MainPresenter implements MainContract.Presenter {
     private Context context;
     private MainContract.View view;
+    private BooksRepository booksRepository;
+
     private boolean isNewBooksTab = true;
     private String currentBookType = "";
 
-    public MainPresenter(Context context, MainContract.View view) {
+    public MainPresenter(Context context, MainContract.View view, BooksRepository booksRepository) {
         this.context = context;
         this.view = view;
+        this.booksRepository = booksRepository;
         this.view.setPresenter(this);
     }
 
@@ -23,13 +27,12 @@ public class MainPresenter implements MainContract.Presenter {
         );
         this.view.setupNavigationView(bookTypesList);
         this.changeBookType(bookTypesList[0]);
-        this.getListOfBooks();
+        this.getBookList();
     }
 
     @Override
     public void changeBookType(String bookType) {
         this.currentBookType = bookType;
-        this.isNewBooksTab = true;
         this.view.setSelectedTabLayout(this.isNewBooksTab);
         this.view.setTitleOfToolBar(this.currentBookType);
         this.view.closeDrawer();
@@ -51,7 +54,6 @@ public class MainPresenter implements MainContract.Presenter {
         return linksOfBookTypesList[0];
     }
 
-    private void getListOfBooks() {
-        
+    private void getBookList() {
     }
 }
