@@ -10,6 +10,8 @@ import daniel.com.truyenfull.data.BooksRepository;
 import daniel.com.truyenfull.data.entity.Book;
 
 public class MainPresenter implements MainContract.Presenter {
+    private static final String TAG = MainPresenter.class.getSimpleName();
+
     private Context context;
     private MainContract.View view;
     private BooksRepository booksRepository;
@@ -27,6 +29,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void start() {
+        this.view.hideLoadingDialog();
         String[] bookTypesList = this.context.getResources().getStringArray(
             R.array.book_types_array
         );
@@ -41,6 +44,7 @@ public class MainPresenter implements MainContract.Presenter {
         this.view.setSelectedTabLayout(this.isNewBooksTab);
         this.view.setTitleOfToolBar(this.currentBookType);
         this.view.closeDrawer();
+        this.getBookList();
     }
 
     @Override
@@ -52,7 +56,7 @@ public class MainPresenter implements MainContract.Presenter {
             R.array.book_types_array
         );
         for (int i = 0; i < bookTypesList.length; i++) {
-            if (bookTypesList[i] == bookType) {
+            if (bookTypesList[i].equals(bookType)) {
                 return linksOfBookTypesList[i];
             }
         }
@@ -65,15 +69,18 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private void getBookList() {
+        this.view.showLoadingDialog();
         this.booksRepository.getBooksInPage(
             new BooksDataSource.LoadBooksCallback() {
                 @Override
                 public void onBooksLoaded(List<Book> bookList) {
+                    view.hideLoadingDialog();
                     view.drawBookList(bookList);
                 }
 
                 @Override
                 public void onDataNotAvailable() {
+                    view.hideLoadingDialog();
                     view.showError();
                 }
             },

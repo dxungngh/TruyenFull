@@ -20,6 +20,10 @@ public interface MainContract {
 
         void drawBookList(List<Book> bookList);
 
+        void showLoadingDialog();
+
+        void hideLoadingDialog();
+
         void showError();
 
         void openBookDetailScreen(Book book);

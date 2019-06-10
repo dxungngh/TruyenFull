@@ -7,8 +7,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="tab_layout_margin_top">60dp</dimen>
     <!-- text size -->
-    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="small_text_size">13sp</dimen>
     <dimen name="normal_text_size">15sp</dimen>
     <!-- row book -->
-    <dimen name="row_book_image_size">60dp</dimen>
+    <dimen name="row_book_image_size">70dp</dimen>
 </resources>

@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -46,6 +47,8 @@ public class MainFragment extends Fragment
     protected TabLayout tabLayout;
     @BindView(R.id.fragment_main_book_list_recycler_view)
     protected RecyclerView bookListRecyclerView;
+    @BindView(R.id.fragment_main_progress_bar)
+    protected ProgressBar progressBar;
 
     private BooksAdapter booksAdapter;
 
@@ -131,6 +134,30 @@ public class MainFragment extends Fragment
                     } else {
                         booksAdapter.notifyDataSetChanged(bookList);
                     }
+                }
+            }
+        );
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        super.getActivity().runOnUiThread(
+            new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }
+        );
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        super.getActivity().runOnUiThread(
+            new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         );

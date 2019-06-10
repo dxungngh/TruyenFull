@@ -64,6 +64,8 @@ public class BooksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         protected SimpleDraweeView bookImage;
         @BindView(R.id.row_book_name)
         protected TextView bookName;
+        @BindView(R.id.row_book_author)
+        protected TextView authorName;
         @BindView(R.id.row_book_new_chapter)
         protected TextView newChapterName;
 
@@ -74,6 +76,7 @@ public class BooksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         private void drawBook(Book book) {
             this.bookName.setText(book.getName());
+            this.authorName.setText(book.getAuthorName());
             this.newChapterName.setText(book.getNewChapter());
             this.drawBookImage(book.getImageUrl());
             this.setupBookOnClick(book);
