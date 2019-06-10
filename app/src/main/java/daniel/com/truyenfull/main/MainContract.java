@@ -1,7 +1,10 @@
 package daniel.com.truyenfull.main;
 
+import java.util.List;
+
 import daniel.com.truyenfull.baseMVP.BasePresenter;
 import daniel.com.truyenfull.baseMVP.BaseView;
+import daniel.com.truyenfull.data.entity.Book;
 
 public interface MainContract {
     interface View extends BaseView<Presenter> {
@@ -14,6 +17,10 @@ public interface MainContract {
         void setupNavigationView(String[] bookTypeList);
 
         void setSelectedTabLayout(boolean isNewBooksTab);
+
+        void drawBookList(List<Book> bookList);
+
+        void showError();
     }
 
     interface Presenter extends BasePresenter {

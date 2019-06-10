@@ -36,7 +36,11 @@ public class BooksLocalDataSource implements BooksDataSource {
     }
 
     @Override
-    public void getBooks(@NonNull final LoadBooksCallback callback) {
+    public void getBooksInPage(@NonNull final LoadBooksCallback callback, String link, int pageIndex) {
+    }
+
+    @Override
+    public void getAllBooks(@NonNull final LoadBooksCallback callback) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -45,11 +49,7 @@ public class BooksLocalDataSource implements BooksDataSource {
                     new Runnable() {
                         @Override
                         public void run() {
-                            if (bookList.isEmpty()) {
-                                callback.onDataNotAvailable();
-                            } else {
-                                callback.onBooksLoaded(bookList);
-                            }
+                            callback.onBooksLoaded(bookList);
                         }
                     }
                 );

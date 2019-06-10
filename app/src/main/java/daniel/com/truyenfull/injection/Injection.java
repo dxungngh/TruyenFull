@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import daniel.com.truyenfull.data.BooksRepository;
 import daniel.com.truyenfull.data.local.BooksDatabase;
 import daniel.com.truyenfull.data.local.BooksLocalDataSource;
+import daniel.com.truyenfull.data.remote.BooksParser;
 import daniel.com.truyenfull.data.remote.BooksRemoteDataSource;
 import daniel.com.truyenfull.util.AppExecutors;
 
@@ -19,7 +20,7 @@ public class Injection {
     public static BooksRepository provideBooksRepository(Context context) {
         BooksDatabase database = BooksDatabase.getInstance(context);
         return BooksRepository.getInstance(
-            BooksRemoteDataSource.getInstance(),
+            BooksRemoteDataSource.getInstance(new AppExecutors(), new BooksParser()),
             BooksLocalDataSource.getInstance(new AppExecutors(), database.bookDao())
         );
     }

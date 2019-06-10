@@ -18,6 +18,8 @@ public class Book {
     public String status;
     @ColumnInfo(name = "description")
     public String description;
+    @ColumnInfo(name = "link")
+    public String link;
 
     public int getId() {
         return id;
@@ -59,6 +61,14 @@ public class Book {
         this.description = description;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -67,6 +77,7 @@ public class Book {
             ", authorName='" + authorName + '\'' +
             ", status='" + status + '\'' +
             ", description='" + description + '\'' +
+            ", link='" + link + '\'' +
             '}';
     }
 }

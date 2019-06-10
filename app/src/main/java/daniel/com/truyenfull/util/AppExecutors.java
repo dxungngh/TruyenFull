@@ -9,13 +9,10 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class AppExecutors {
-
     private static final int THREAD_COUNT = 3;
 
     private final Executor diskIO;
-
     private final Executor networkIO;
-
     private final Executor mainThread;
 
     @VisibleForTesting
@@ -26,22 +23,23 @@ public class AppExecutors {
     }
 
     public AppExecutors() {
-        this(new DiskIOThreadExecutor(),
+        this(
+            new DiskIOThreadExecutor(),
             Executors.newFixedThreadPool(THREAD_COUNT),
             new MainThreadExecutor()
         );
     }
 
     public Executor diskIO() {
-        return diskIO;
+        return this.diskIO;
     }
 
     public Executor networkIO() {
-        return networkIO;
+        return this.networkIO;
     }
 
     public Executor mainThread() {
-        return mainThread;
+        return this.mainThread;
     }
 
     private static class MainThreadExecutor implements Executor {

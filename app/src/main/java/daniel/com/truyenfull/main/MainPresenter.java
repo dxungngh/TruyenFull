@@ -2,8 +2,12 @@ package daniel.com.truyenfull.main;
 
 import android.content.Context;
 
+import java.util.List;
+
 import daniel.com.truyenfull.R;
+import daniel.com.truyenfull.data.BooksDataSource;
 import daniel.com.truyenfull.data.BooksRepository;
+import daniel.com.truyenfull.data.entity.Book;
 
 public class MainPresenter implements MainContract.Presenter {
     private Context context;
@@ -12,6 +16,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     private boolean isNewBooksTab = true;
     private String currentBookType = "";
+    private int currentPageIndex = 0;
 
     public MainPresenter(Context context, MainContract.View view, BooksRepository booksRepository) {
         this.context = context;
@@ -55,5 +60,20 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private void getBookList() {
+        this.booksRepository.getBooksInPage(
+            new BooksDataSource.LoadBooksCallback() {
+                @Override
+                public void onBooksLoaded(List<Book> bookList) {
+                    view.drawBookList(bookList);
+                }
+
+                @Override
+                public void onDataNotAvailable() {
+                    view.showError();
+                }
+            },
+            this.getLinkOfBookType(this.currentBookType),
+            this.currentPageIndex
+        );
     }
 }

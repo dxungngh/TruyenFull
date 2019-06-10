@@ -34,6 +34,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
     implementation "com.facebook.fresco:fresco:$rootProject.frescoVersion"
+    implementation group: 'org.jsoup', name: 'jsoup', version: "$rootProject.jsoupVersion"
 
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"

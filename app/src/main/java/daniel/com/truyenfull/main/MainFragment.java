@@ -18,14 +18,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import daniel.com.truyenfull.R;
+import daniel.com.truyenfull.data.entity.Book;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainFragment extends Fragment
     implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+    private static final String TAG = MainFragment.class.getSimpleName();
 
     private static MainFragment INSTANCE;
     private MainContract.Presenter presenter;
@@ -40,6 +44,8 @@ public class MainFragment extends Fragment
     protected TabLayout tabLayout;
     @BindView(R.id.fragment_main_book_list_recycler_view)
     protected RecyclerView bookListRecyclerView;
+
+    private BooksAdapter booksAdapter;
 
     public static MainFragment getInstance() {
         if (INSTANCE == null) {
@@ -109,6 +115,28 @@ public class MainFragment extends Fragment
             tab = this.tabLayout.getTabAt(1);
         }
         tab.select();
+    }
+
+    @Override
+    public void drawBookList(final List<Book> bookList) {
+        super.getActivity().runOnUiThread(
+            new Runnable() {
+                @Override
+                public void run() {
+                    if (booksAdapter == null) {
+                        booksAdapter = new BooksAdapter(bookList);
+                        bookListRecyclerView.setAdapter(booksAdapter);
+                    } else {
+                        booksAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        );
+    }
+
+    @Override
+    public void showError() {
+
     }
 
     private void drawComponentViews() {

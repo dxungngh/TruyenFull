@@ -19,7 +19,9 @@ public interface BooksDataSource {
         void onDataNotAvailable();
     }
 
-    void getBooks(@NonNull LoadBooksCallback callback);
+    void getBooksInPage(@NonNull LoadBooksCallback callback, String link, int pageIndex);
+
+    void getAllBooks(@NonNull LoadBooksCallback callback);
 
     void deleteAllBooks();
 

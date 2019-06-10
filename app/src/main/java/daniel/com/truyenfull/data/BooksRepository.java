@@ -4,8 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.common.base.Preconditions;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +17,8 @@ public class BooksRepository implements BooksDataSource {
     private final BooksDataSource booksRemoteDataSource;
     private final BooksDataSource booksLocalDataSource;
 
-    Map<Integer, Book> cachedBooks;
-    boolean cacheIsDirty = false;
+    private boolean isCacheDirty = true;
+    private Map<String, Book> cachedBooks;
 
     public static BooksRepository getInstance(BooksDataSource booksRemoteDataSource,
                                               BooksDataSource booksLocalDataSource) {
@@ -40,86 +39,90 @@ public class BooksRepository implements BooksDataSource {
     }
 
     @Override
-    public void getBooks(@NonNull final LoadBooksCallback callback) {
+    public void getBooksInPage(@NonNull final LoadBooksCallback callback,
+                               String link,
+                               int pageIndex) {
         Preconditions.checkNotNull(callback);
-        if (this.cachedBooks != null && !this.cacheIsDirty) {
-            callback.onBooksLoaded(new ArrayList<>(this.cachedBooks.values()));
-            return;
-        }
-        if (this.cacheIsDirty) {
-            getBooksFromRemoteDataSource(callback);
-        } else {
-            this.booksLocalDataSource.getBooks(
-                new LoadBooksCallback() {
-                    @Override
-                    public void onBooksLoaded(List<Book> bookList) {
-                        refreshCache(bookList);
-                        callback.onBooksLoaded(new ArrayList<>(cachedBooks.values()));
-                    }
+        this.getBooksFromRemoteDataSource(callback, link, pageIndex);
+    }
 
-                    @Override
-                    public void onDataNotAvailable() {
-                        getBooksFromRemoteDataSource(callback);
-                    }
-                }
-            );
-        }
+    @Override
+    public void getAllBooks(@NonNull LoadBooksCallback callback) {
     }
 
     @Override
     public void saveBook(@NonNull Book book) {
         Preconditions.checkNotNull(book);
         this.booksLocalDataSource.saveBook(book);
-
-        // Do in memory cache update to keep the app UI up to date
-        if (this.cachedBooks == null) {
-            this.cachedBooks = new LinkedHashMap<>();
-        }
-        this.cachedBooks.put(book.getId(), book);
     }
 
     @Override
     public void deleteAllBooks() {
         this.booksLocalDataSource.deleteAllBooks();
-        if (this.cachedBooks == null) {
-            this.cachedBooks = new LinkedHashMap<>();
-        }
-        this.cachedBooks.clear();
     }
 
-    private void getBooksFromRemoteDataSource(@NonNull final LoadBooksCallback callback) {
-        this.booksRemoteDataSource.getBooks(
+    private void getBooksFromRemoteDataSource(@NonNull final LoadBooksCallback callback,
+                                              String link,
+                                              int pageIndex) {
+        this.booksRemoteDataSource.getBooksInPage(
             new LoadBooksCallback() {
                 @Override
                 public void onBooksLoaded(List<Book> bookList) {
-                    refreshCache(bookList);
                     refreshLocalDataSource(bookList);
-                    callback.onBooksLoaded(new ArrayList<>(cachedBooks.values()));
+                    callback.onBooksLoaded(bookList);
                 }
 
                 @Override
                 public void onDataNotAvailable() {
                     callback.onDataNotAvailable();
                 }
-            }
+            },
+            link,
+            pageIndex
         );
     }
 
-    private void refreshCache(List<Book> bookList) {
-        if (this.cachedBooks == null) {
-            this.cachedBooks = new LinkedHashMap<>();
+    private void refreshLocalDataSource(final List<Book> bookList) {
+        if (this.isCacheDirty || this.cachedBooks == null) {
+            this.booksLocalDataSource.getAllBooks(
+                new LoadBooksCallback() {
+                    @Override
+                    public void onBooksLoaded(List<Book> bookListOnDatabase) {
+                        putAllBooksToCache(bookListOnDatabase);
+                        checkBooksOnDatabaseToSave(bookList);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                    }
+                }
+            );
+        } else {
+            this.checkBooksOnDatabaseToSave(bookList);
         }
-        this.cachedBooks.clear();
-        for (Book book : bookList) {
-            this.cachedBooks.put(book.getId(), book);
-        }
-        this.cacheIsDirty = false;
     }
 
-    private void refreshLocalDataSource(List<Book> bookList) {
-        this.booksLocalDataSource.deleteAllBooks();
-        for (Book book : bookList) {
-            this.booksLocalDataSource.saveBook(book);
+    private void putAllBooksToCache(List<Book> bookListOnDatabase) {
+        this.cachedBooks = new HashMap<>();
+        if (bookListOnDatabase != null) {
+            for (Book book : bookListOnDatabase) {
+                this.cachedBooks.put(book.getLink(), book);
+            }
         }
+    }
+
+    private void checkBooksOnDatabaseToSave(List<Book> bookList) {
+        for (Book book : bookList) {
+            boolean isExisted = false;
+            String link = book.getLink();
+            if (this.cachedBooks.containsKey(link)) {
+                isExisted = true;
+            }
+            if (!isExisted) {
+                this.booksLocalDataSource.saveBook(book);
+                this.cachedBooks.put(link, book);
+            }
+        }
+        this.isCacheDirty = false;
     }
 }
