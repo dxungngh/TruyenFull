@@ -9,4 +9,5 @@
 
     <string name="new_books">New Books</string>
     <string name="history">History</string>
+    <string name="new_chapter">Chapter %1$s</string>
 </resources>

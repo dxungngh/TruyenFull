@@ -124,7 +124,7 @@ public class MainFragment extends Fragment
                 @Override
                 public void run() {
                     if (booksAdapter == null) {
-                        booksAdapter = new BooksAdapter(bookList);
+                        booksAdapter = new BooksAdapter(getActivity(), bookList);
                         bookListRecyclerView.setAdapter(booksAdapter);
                     } else {
                         booksAdapter.notifyDataSetChanged();

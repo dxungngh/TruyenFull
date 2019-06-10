@@ -20,6 +20,10 @@ public class Book {
     public String description;
     @ColumnInfo(name = "link")
     public String link;
+    @ColumnInfo(name = "image_url")
+    public String imageUrl;
+    @ColumnInfo(name = "new_chapter")
+    public String newChapter;
 
     public int getId() {
         return id;
@@ -69,6 +73,22 @@ public class Book {
         this.link = link;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getNewChapter() {
+        return newChapter;
+    }
+
+    public void setNewChapter(String newChapter) {
+        this.newChapter = newChapter;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -78,6 +98,8 @@ public class Book {
             ", status='" + status + '\'' +
             ", description='" + description + '\'' +
             ", link='" + link + '\'' +
+            ", imageUrl='" + imageUrl + '\'' +
+            ", newChapter='" + newChapter + '\'' +
             '}';
     }
 }
