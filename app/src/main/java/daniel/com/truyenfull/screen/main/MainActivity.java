@@ -1,4 +1,4 @@
-package daniel.com.truyenfull.main;
+package daniel.com.truyenfull.screen.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

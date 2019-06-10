@@ -1,26 +1,31 @@
-package daniel.com.truyenfull.launcher;
+package daniel.com.truyenfull.screen.bookDetail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import daniel.com.truyenfull.R;
-import daniel.com.truyenfull.main.MainActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class LauncherFragment extends Fragment implements LauncherContract.View {
-    private static LauncherFragment INSTANCE;
-    private LauncherContract.Presenter presenter;
+public class BookDetailFragment extends Fragment implements BookDetailContract.View {
+    private static final String TAG = BookDetailFragment.class.getSimpleName();
 
-    public static LauncherFragment getInstance() {
+    private static BookDetailFragment INSTANCE;
+    private BookDetailContract.Presenter presenter;
+
+    @BindView(R.id.toolbar)
+    protected Toolbar toolbar;
+
+    public static BookDetailFragment getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new LauncherFragment();
+            INSTANCE = new BookDetailFragment();
         }
         return INSTANCE;
     }
@@ -30,8 +35,9 @@ public class LauncherFragment extends Fragment implements LauncherContract.View 
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_launcher, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_detail, container, false);
         ButterKnife.bind(this, view);
+        this.drawComponentViews();
         return view;
     }
 
@@ -42,14 +48,15 @@ public class LauncherFragment extends Fragment implements LauncherContract.View 
     }
 
     @Override
-    public void setPresenter(LauncherContract.Presenter presenter) {
+    public void setPresenter(BookDetailContract.Presenter presenter) {
         this.presenter = checkNotNull(presenter);
     }
 
     @Override
-    public void openMainScreen() {
-        Intent intent = new Intent(super.getActivity(), MainActivity.class);
-        super.startActivity(intent);
-        super.getActivity().finish();
+    public void setTitleOfToolBar(String title) {
+        this.toolbar.setTitle(title);
+    }
+
+    private void drawComponentViews() {
     }
 }

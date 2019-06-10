@@ -1,5 +1,6 @@
-package daniel.com.truyenfull.main;
+package daniel.com.truyenfull.screen.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -24,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import daniel.com.truyenfull.R;
 import daniel.com.truyenfull.data.entity.Book;
+import daniel.com.truyenfull.screen.bookDetail.BookDetailActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -124,10 +126,10 @@ public class MainFragment extends Fragment
                 @Override
                 public void run() {
                     if (booksAdapter == null) {
-                        booksAdapter = new BooksAdapter(getActivity(), bookList);
+                        booksAdapter = new BooksAdapter(presenter, bookList);
                         bookListRecyclerView.setAdapter(booksAdapter);
                     } else {
-                        booksAdapter.notifyDataSetChanged();
+                        booksAdapter.notifyDataSetChanged(bookList);
                     }
                 }
             }
@@ -137,6 +139,13 @@ public class MainFragment extends Fragment
     @Override
     public void showError() {
 
+    }
+
+    @Override
+    public void openBookDetailScreen(Book book) {
+        Intent intent = new Intent(super.getActivity(), BookDetailActivity.class);
+        intent.putExtra("BOOK", book);
+        super.startActivity(intent);
     }
 
     private void drawComponentViews() {

@@ -1,7 +1,7 @@
-package daniel.com.truyenfull.main;
+package daniel.com.truyenfull.screen.main;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,11 +21,11 @@ import daniel.com.truyenfull.data.entity.Book;
 public class BooksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = BooksAdapter.class.getSimpleName();
 
-    private Context context;
+    private MainContract.Presenter presenter;
     private List<Book> bookList;
 
-    public BooksAdapter(Context context, List<Book> bookList) {
-        this.context = context;
+    public BooksAdapter(MainContract.Presenter presenter, List<Book> bookList) {
+        this.presenter = presenter;
         this.bookList = bookList;
     }
 
@@ -52,7 +52,14 @@ public class BooksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return this.bookList.size();
     }
 
+    public void notifyDataSetChanged(List<Book> bookList) {
+        this.bookList = bookList;
+        super.notifyDataSetChanged();
+    }
+
     public class BookViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.row_book_layout)
+        protected CardView rowLayout;
         @BindView(R.id.row_book_image)
         protected SimpleDraweeView bookImage;
         @BindView(R.id.row_book_name)
@@ -69,6 +76,7 @@ public class BooksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             this.bookName.setText(book.getName());
             this.newChapterName.setText(book.getNewChapter());
             this.drawBookImage(book.getImageUrl());
+            this.setupBookOnClick(book);
         }
 
         private void drawBookImage(String imageUrl) {
@@ -77,6 +85,17 @@ public class BooksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else {
                 this.bookImage.setImageResource(R.mipmap.ic_book);
             }
+        }
+
+        private void setupBookOnClick(final Book book) {
+            this.rowLayout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        presenter.openBookDetailScreen(book);
+                    }
+                }
+            );
         }
     }
 }

@@ -1,4 +1,4 @@
-package daniel.com.truyenfull.main;
+package daniel.com.truyenfull.screen.main;
 
 import java.util.List;
 
@@ -21,11 +21,15 @@ public interface MainContract {
         void drawBookList(List<Book> bookList);
 
         void showError();
+
+        void openBookDetailScreen(Book book);
     }
 
     interface Presenter extends BasePresenter {
         void changeBookType(String bookType);
 
         String getLinkOfBookType(String bookType);
+
+        void openBookDetailScreen(Book book);
     }
 }

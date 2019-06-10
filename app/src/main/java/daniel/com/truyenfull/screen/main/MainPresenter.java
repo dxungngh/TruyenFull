@@ -1,4 +1,4 @@
-package daniel.com.truyenfull.main;
+package daniel.com.truyenfull.screen.main;
 
 import android.content.Context;
 
@@ -57,6 +57,11 @@ public class MainPresenter implements MainContract.Presenter {
             }
         }
         return linksOfBookTypesList[0];
+    }
+
+    @Override
+    public void openBookDetailScreen(Book book) {
+        this.view.openBookDetailScreen(book);
     }
 
     private void getBookList() {

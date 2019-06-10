@@ -1,4 +1,4 @@
-package daniel.com.truyenfull.launcher;
+package daniel.com.truyenfull.screen.launcher;
 
 import daniel.com.truyenfull.baseMVP.BasePresenter;
 import daniel.com.truyenfull.baseMVP.BaseView;

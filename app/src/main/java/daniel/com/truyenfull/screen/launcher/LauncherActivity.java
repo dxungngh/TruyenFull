@@ -1,4 +1,4 @@
-package daniel.com.truyenfull.launcher;
+package daniel.com.truyenfull.screen.launcher;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
